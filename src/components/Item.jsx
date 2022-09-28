@@ -24,7 +24,9 @@ const Item = ({
   const onAdd = (count) => {
     if (count <= updatedStock) {
       setUpdatedStock(updatedStock - count);
-      console.log(`Añadiste ${count} unidades al carrito.`);
+      console.log(
+        `Añadiste ${count} unidades de ${title} (ID: ${id}) al carrito.`
+      );
     }
   };
 
@@ -48,16 +50,18 @@ const Item = ({
         </Link>
       </Stack>
       <Box>
-        <Badge
-          bgColor="secondary"
-          color="white"
-          letterSpacing="2px"
-          borderRadius="full"
-          px="4"
-          py="1"
-        >
-          {category}
-        </Badge>
+        <Link to={`/category/${category}`}>
+          <Badge
+            bgColor="secondary"
+            color="white"
+            letterSpacing="2px"
+            borderRadius="full"
+            px="4"
+            py="1"
+          >
+            {category}
+          </Badge>
+        </Link>
         <Stack mt="3">
           <Heading as="h3" color="black">
             {title}

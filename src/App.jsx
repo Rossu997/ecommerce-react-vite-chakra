@@ -1,7 +1,7 @@
 ////////*? rafce */
 
 /* IMPORT COMPONENTS */
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Container } from "@chakra-ui/react";
 
@@ -10,6 +10,7 @@ import Cart from "./components/Cart.jsx";
 import ItemListContainer from "./components/ItemListContainer";
 import ItemDetailContainer from "./components/ItemDetailContainer";
 import Footer from "./components/Footer";
+import { Terminosycondiciones } from "./assets/Terminosycondiciones";
 
 const message = "all our products";
 
@@ -38,6 +39,10 @@ function App() {
           />
           <Route path="/item/:idProduct" element={<ItemDetailContainer />} />
           <Route path="/cart" element={<Cart />} />
+          <Route
+            path="/assets/terminosycondiciones"
+            element={<Terminosycondiciones />}
+          />
         </Routes>
       </Container>
       <Footer />

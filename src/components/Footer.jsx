@@ -1,4 +1,5 @@
 import { Stack, Text, Heading, Box, Container } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -9,9 +10,7 @@ const Footer = () => {
           <Text>All rights reserved</Text>
         </Stack>
 
-        <a href="../assets/terminosycondiciones.html" target="_blank">
-          Terms and Conditions
-        </a>
+        <Link to={"/assets/terminosycondiciones"}>Terms and Conditions</Link>
       </Container>
     </Box>
   );

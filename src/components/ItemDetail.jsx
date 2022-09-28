@@ -1,8 +1,10 @@
 /* IMPORT COMPONENTS */
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Text, Heading, Box, Image, Badge } from "@chakra-ui/react";
+import { useState, useContext } from "react";
+import { Text, Heading, Box, Image, Badge, Stack } from "@chakra-ui/react";
 import ItemCount from "./ItemCount";
+import { Link } from "react-router-dom";
+
+import { Context } from "../context/CustomContext";
 
 /*---------------------------------------------------------------------*/
 
@@ -18,45 +20,71 @@ const ItemDetail = ({
 }) => {
   /* STATES */
   const [updatedStock, setUpdatedStock] = useState(stock);
-  const [initial, setInitial] = useState(0 + !!updatedStock);
 
   const onAdd = (count) => {
-    setUpdatedStock(updatedStock - count);
-    console.log(`Añadiste ${count} unidades al carrito.`);
+    if (count <= updatedStock) {
+      setUpdatedStock(updatedStock - count);
+      console.log(
+        `Añadiste ${count} unidades de ${title} (ID: ${id}) al carrito.`
+      );
+    }
   };
+
+  //******** */
+  const resultado = useContext(Context);
+  console.log(resultado);
+  //******** */
 
   /* RENDER */
   return (
-    <Box as="main" display="flex" justifyContent="center">
-      <Box
-        maxW="8xl"
-        minW="md"
-        borderWidth="1px"
-        borderRadius="lg"
-        display="flex"
-        gap="20"
-        px="5rem"
-        py="2rem"
-        bgColor="white"
-      >
-        <Image src={image} alt={title} width="sm" />
-        <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent="space-around"
-        >
-          <Box mt="2" fontWeight="semibold" lineHeight="tight">
-            <Badge borderRadius="full" px="6" py="2" mb="4" colorScheme="brand">
+    <Stack
+      as="main"
+      maxW="8xl"
+      minW="md"
+      borderWidth="1px"
+      borderRadius="lg"
+      flexDir="row"
+      gap="20"
+      px="5rem"
+      py="2rem"
+      bgColor="white"
+    >
+      <Image src={image} alt={title} width="lg" />
+      <Stack justifyContent="space-around">
+        <Box>
+          <Link to={`/category/${category}`}>
+            <Badge
+              bgColor="secondary"
+              color="white"
+              letterSpacing="2px"
+              borderRadius="full"
+              px="4"
+              py="1"
+            >
               {category}
             </Badge>
-            <Heading>{title}</Heading>
-            <Text my="4">{description}</Text>
-            <Heading>{`$${price}`}</Heading>
+          </Link>
+          <Heading as="h3" color="black" my="4">
+            {title}
+          </Heading>
+          <Text color="neutralDark" fontWeight="500" maxW="lg">
+            {description}
+          </Text>
+          <Box>
+            <Heading
+              color="primary"
+              borderTopWidth="1px"
+              borderTopColor="neutralLight"
+              pt="3"
+              mt="10"
+            >
+              {`$${price}`}
+            </Heading>
           </Box>
-          <ItemCount stock={updatedStock} initial={initial} onAdd={onAdd} />
         </Box>
-      </Box>
-    </Box>
+        <ItemCount stock={updatedStock} onAdd={onAdd} />
+      </Stack>
+    </Stack>
   );
 };
 

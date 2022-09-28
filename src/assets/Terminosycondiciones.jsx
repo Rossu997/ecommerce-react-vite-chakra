@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Terminos y Condiciones</title>
-  </head>
-  <body>
+import React from "react";
+
+export const Terminosycondiciones = () => {
+  return (
     <p>
       Términos y condiciones de uso de sitio web 1. ACEPTACIÓN En el presente
       documento (en adelante, el “Contrato”) se establecen los términos y
@@ -192,7 +187,7 @@
       o de otra forma), ni en todo ni en parte, sin el previo consentimiento por
       escrito en este sentido de parte de RH. 10. PRIVACIDAD RH procesará toda
       la información personal que el Usuario introduzca o facilite a través de
-      nuestro Sitio Web de conformidad con la Política de > Privacidad del Sitio
+      nuestro Sitio Web de conformidad con la Política de Privacidad del Sitio
       Web y los términos y condiciones relativos a la misma en este contrato.
       11. COOKIES ¿Qué son las cookies? En este sitio web utilizamos cookies.
       Las cookies son archivos de texto que contienen pequeñas cantidades de
@@ -335,5 +330,5 @@
       información sobre el Sitio Web o sobre el presente Contrato, contactar
       con: Nadie.
     </p>
-  </body>
-</html>
+  );
+};

@@ -21,7 +21,6 @@ const ItemCount = ({ stock, onAdd }) => {
 
   useEffect(() => {
     stock ? setCount(1) : setCount(0);
-    console.log("Entro al effect");
   }, [stock]);
 
   /* RENDER */

@@ -22,8 +22,8 @@ const Nav = () => {
             letterSpacing="1px"
             color="black"
             px="1"
-            borderBottomColor="brand"
-            borderBottomWidth="1px"
+            /* borderBottomColor="brand"
+            borderBottomWidth="1px" */
           >
             {category}
           </Text>
