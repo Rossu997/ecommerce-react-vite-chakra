@@ -46,7 +46,12 @@ const Item = ({
     >
       <Stack display="flex" justifyContent="center">
         <Link to={`/item/${id}`}>
-          <Image src={image} alt={"some alt text"} w="300px" />
+          <Image
+            src={image}
+            alt={"some alt text"}
+            h="300px"
+            objectFit="contain"
+          />
         </Link>
       </Stack>
       <Box>
