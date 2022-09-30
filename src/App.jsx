@@ -1,21 +1,17 @@
-////////*? rafce */
-
-/* IMPORT COMPONENTS */
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Container } from "@chakra-ui/react";
 
-import NavBar from "./components/NavBar";
-import Cart from "./components/Cart.jsx";
-import ItemListContainer from "./components/ItemListContainer";
-import ItemDetailContainer from "./components/ItemDetailContainer";
-import Footer from "./components/Footer";
-import { Terminosycondiciones } from "./assets/Terminosycondiciones";
+import NavBar from "./components/header/NavBar";
+import Cart from "./components/main/Cart";
+import ItemListContainer from "./components/main/ItemListContainer";
+import ItemDetailContainer from "./components/main/ItemDetailContainer";
+import Footer from "./components/footer/Footer";
+import { Terminosycondiciones } from "./components/footer/Terminosycondiciones";
 
-const message = "all our products";
+/*---------------------------------------------------------------------*/
 
 function App() {
-  /* RENDER */
   return (
     <BrowserRouter>
       <NavBar />
@@ -28,19 +24,15 @@ function App() {
         margin="0 auto"
       >
         <Routes>
-          <Route
-            exact
-            path="/"
-            element={<ItemListContainer greetings={message} />}
-          />
+          <Route exact path="/" element={<ItemListContainer />} />
           <Route
             path="/category/:categoryName"
-            element={<ItemListContainer greetings={message} />}
+            element={<ItemListContainer />}
           />
           <Route path="/item/:idProduct" element={<ItemDetailContainer />} />
           <Route path="/cart" element={<Cart />} />
           <Route
-            path="/assets/terminosycondiciones"
+            path="/legals/terminosycondiciones"
             element={<Terminosycondiciones />}
           />
         </Routes>
@@ -50,5 +42,4 @@ function App() {
   );
 }
 
-/* EXPORT COMPONENT */
 export default App;

@@ -1,12 +1,11 @@
 import React, { createContext, useState } from "react";
 
-//CART CONTEXT
+/*---------------------------------------------------------------------*/
 
 export const Context = createContext();
 
-//{Provider(trae la info. mensajero), Consumer(la info. mensaje)} //No usamos el consumer, usamos el hook useContext
-
 const { Provider } = Context;
+//{Provider(trae la info. mensajero), Consumer(la info. mensaje)} //No usamos el consumer, usamos el hook useContext
 
 const CartContext = ({ children }) => {
   const [cart, setCart] = useState([]);
@@ -30,10 +29,10 @@ const CartContext = ({ children }) => {
   };
 
   return (
-    <Provider value={{ addToCart, removeFromCart, resetCart }}>
+    <Provider value={{ cart, addToCart, removeFromCart, resetCart }}>
       {children}
     </Provider>
   );
 };
 
-export default CustomContext;
+export default CartContext;

@@ -1,14 +1,11 @@
-/* IMPORT COMPONENTS */
 import { useState, useEffect } from "react";
 import { Text, Button, Box, Input, Stack } from "@chakra-ui/react";
 
 /*---------------------------------------------------------------------*/
 
 const ItemCount = ({ stock, onAdd }) => {
-  /* STATES */
   const [count, setCount] = useState(0 + !!stock);
 
-  /* LOGIC */
   const handlerIncrease = () => {
     count < stock
       ? setCount(count + 1)
@@ -23,7 +20,6 @@ const ItemCount = ({ stock, onAdd }) => {
     stock ? setCount(1) : setCount(0);
   }, [stock]);
 
-  /* RENDER */
   return (
     <Stack mt="10" alignItems="center" gap="6">
       <Stack

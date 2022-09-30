@@ -1,22 +1,19 @@
-/* IMPORT COMPONENTS */
 import { useState, useEffect } from "react";
-import { CircularProgress } from "@chakra-ui/react";
-import { Heading, Stack } from "@chakra-ui/react";
+import { CircularProgress, Heading, Stack } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
 import ItemList from "./ItemList";
-import api from "../services/api";
+import api from "../../services/api";
 
 /*---------------------------------------------------------------------*/
 
-// Consume solo todos los objetos, 1 array []
-const ItemListContainer = ({ greetings }) => {
-  /* STATES */
+const greetings = "todos nuestros productos";
+
+const ItemListContainer = () => {
   const [listProducts, setListProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { categoryName } = useParams();
 
-  /* LOGIC */
   useEffect(() => {
     setIsLoading(true);
     (async () => {
@@ -35,7 +32,6 @@ const ItemListContainer = ({ greetings }) => {
   // Y luego llamar un componente con un botón "cargar más"
   // Tambien en vez de un spinner usar cards en gris como placeholders
 
-  /* RENDER */
   if (isLoading) {
     return (
       <CircularProgress
@@ -63,5 +59,4 @@ const ItemListContainer = ({ greetings }) => {
   );
 };
 
-/* EXPORT COMPONENT */
 export default ItemListContainer;

@@ -10,7 +10,7 @@ const Footer = () => {
           <Text>All rights reserved</Text>
         </Stack>
 
-        <Link to={"/assets/terminosycondiciones"}>Terms and Conditions</Link>
+        <Link to={"/legals/terminosycondiciones"}>Terms and Conditions</Link>
       </Container>
     </Box>
   );

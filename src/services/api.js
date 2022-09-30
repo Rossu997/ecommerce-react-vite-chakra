@@ -20,4 +20,8 @@ export default {
     );
     return data;
   },
+  getSingleProduct: async (id) => {
+    const { data } = await axios.get(`https://fakestoreapi.com/products/${id}`);
+    return data;
+  },
 };

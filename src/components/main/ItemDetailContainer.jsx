@@ -1,27 +1,33 @@
 /* IMPORT COMPONENTS */
 import { useState, useEffect } from "react";
-import { CircularProgress, CircularProgressLabel } from "@chakra-ui/react";
-import { Box, Heading } from "@chakra-ui/react";
-import ItemDetail from "./ItemDetail";
-import axios from "axios";
 import { useParams } from "react-router-dom";
+import { CircularProgress } from "@chakra-ui/react";
+import axios from "axios";
+
+import ItemDetail from "./ItemDetail";
+import api from "../../services/api";
 
 /*---------------------------------------------------------------------*/
 
-// Consume solo 1 producto, 1 objeto{}
 const ItemDetailContainer = () => {
-  /* STATES */
   const [product, setProduct] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const { idProduct } = useParams();
 
-  /* LOGIC */
-  useEffect(() => {
+  /*  useEffect(() => {
     axios(`https://fakestoreapi.com/products/${idProduct}`).then((res) => {
       setIsLoading(false);
       setProduct(res.data);
     });
-  }, []);
+  }, []); */
+
+  useEffect(() => {
+    setIsLoading(true);
+    (async () => {
+      setProduct(await api.getSingleProduct(idProduct));
+      setIsLoading(false);
+    })();
+  }, [idProduct]);
 
   function getRandomStock() {
     return Math.floor(Math.random() * 10);

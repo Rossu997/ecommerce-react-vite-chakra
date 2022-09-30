@@ -8,8 +8,9 @@ const CartWidget = () => {
   return (
     <IconButton
       aria-label="Cart"
-      boxShadow="3px 3px 10px #d6d6d6, -3px -3px 10px #ffffff"
-      bg="white"
+      bgColor="white"
+      borderWidth="1px"
+      borderColor="neutralLight"
       p="6"
       borderRadius="full"
       color="neutral"

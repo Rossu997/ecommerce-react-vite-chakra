@@ -4,7 +4,7 @@ import { Text, Heading, Box, Image, Badge, Stack } from "@chakra-ui/react";
 import ItemCount from "./ItemCount";
 import { Link } from "react-router-dom";
 
-import { Context } from "../context/CartContext";
+import { Context } from "../../context/CartContext";
 
 /*---------------------------------------------------------------------*/
 
@@ -31,8 +31,8 @@ const ItemDetail = ({
   };
 
   //******** */
-  const resultado = useContext(Context);
-  console.log(resultado);
+  /*  const resultado = useContext(Context);
+  console.log(resultado); */
   //******** */
 
   /* RENDER */

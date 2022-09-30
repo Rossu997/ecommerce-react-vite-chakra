@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Stack, Text } from "@chakra-ui/react";
-import api from "../services/api";
+import api from "../../services/api";
 
 const Nav = () => {
   const [categories, setCategories] = useState([]);

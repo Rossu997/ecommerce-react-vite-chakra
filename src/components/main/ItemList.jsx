@@ -1,15 +1,14 @@
-/* IMPORT COMPONENTS */
-import Item from "./Item";
 import { Stack } from "@chakra-ui/react";
+
+import Item from "./Item";
 
 /*---------------------------------------------------------------------*/
 
 const ItemList = ({ products }) => {
-  function getRandomStock() {
+  /* function getRandomStock() {
     return Math.floor(Math.random() * 10);
-  }
+  } */
 
-  /* RENDER */
   return (
     <Stack
       as="section"
@@ -19,11 +18,10 @@ const ItemList = ({ products }) => {
       gap="100px"
     >
       {products.map((item) => {
-        return <Item {...item} key={item.id} stock={getRandomStock()} />;
+        return <Item {...item} key={item.id} />;
       })}
     </Stack>
   );
 };
 
-/* EXPORT COMPONENT */
 export default ItemList;
