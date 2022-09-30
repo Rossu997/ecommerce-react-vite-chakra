@@ -1,9 +1,17 @@
-/* IMPORT COMPONENTS */
 import { useState, useContext } from "react";
-import { Text, Heading, Box, Image, Badge, Stack } from "@chakra-ui/react";
-import ItemCount from "./ItemCount";
 import { Link } from "react-router-dom";
+import {
+  Text,
+  Heading,
+  Box,
+  Image,
+  Badge,
+  Stack,
+  Button,
+} from "@chakra-ui/react";
 
+import ItemCount from "./ItemCount";
+import ReturnHome from "./ReturnHome";
 import { Context } from "../../context/CartContext";
 
 /*---------------------------------------------------------------------*/
@@ -18,8 +26,8 @@ const ItemDetail = ({
   rating,
   title,
 }) => {
-  /* STATES */
   const [updatedStock, setUpdatedStock] = useState(stock);
+  const [goToCartBtn, setGoToCartBtn] = useState(false);
 
   const onAdd = (count) => {
     if (count <= updatedStock) {
@@ -27,6 +35,7 @@ const ItemDetail = ({
       console.log(
         `Añadiste ${count} unidades de ${title} (ID: ${id}) al carrito.`
       );
+      setGoToCartBtn(true);
     }
   };
 
@@ -35,54 +44,62 @@ const ItemDetail = ({
   console.log(resultado); */
   //******** */
 
-  /* RENDER */
   return (
-    <Stack
-      as="main"
-      maxW="8xl"
-      minW="md"
-      borderWidth="1px"
-      borderRadius="lg"
-      flexDir="row"
-      gap="20"
-      px="5rem"
-      py="2rem"
-      bgColor="white"
-    >
-      <Image src={image} alt={title} width="lg" />
-      <Stack justifyContent="space-around">
-        <Box>
-          <Link to={`/category/${category}`}>
-            <Badge
-              bgColor="secondary"
-              color="white"
-              letterSpacing="2px"
-              borderRadius="full"
-              px="4"
-              py="1"
-            >
-              {category}
-            </Badge>
-          </Link>
-          <Heading as="h3" color="black" my="4">
-            {title}
-          </Heading>
-          <Text color="neutralDark" fontWeight="500" maxW="lg">
-            {description}
-          </Text>
+    <Stack>
+      <ReturnHome />
+      <Stack
+        as="main"
+        maxW="8xl"
+        minW="md"
+        borderWidth="1px"
+        borderRadius="lg"
+        flexDir="row"
+        gap="20"
+        px="5rem"
+        py="2rem"
+        bgColor="white"
+      >
+        <Image src={image} alt={title} maxH="600px" objectFit="contain" />
+        <Stack justifyContent="space-between">
           <Box>
-            <Heading
-              color="primary"
-              borderTopWidth="1px"
-              borderTopColor="neutralLight"
-              pt="3"
-              mt="10"
-            >
-              {`$${price}`}
+            <Link to={`/category/${category}`}>
+              <Badge
+                bgColor="secondary"
+                color="white"
+                letterSpacing="2px"
+                borderRadius="full"
+                px="4"
+                py="1"
+              >
+                {category}
+              </Badge>
+            </Link>
+            <Heading as="h3" color="black" my="4">
+              {title}
             </Heading>
+            <Text color="neutralDark" fontWeight="500" maxW="lg">
+              {description}
+            </Text>
+            <Box>
+              <Heading
+                color="primary"
+                borderTopWidth="1px"
+                borderTopColor="neutralLight"
+                pt="3"
+                mt="10"
+              >
+                {`$${price}`}
+              </Heading>
+            </Box>
           </Box>
-        </Box>
-        <ItemCount stock={updatedStock} onAdd={onAdd} />
+          {goToCartBtn ? (
+            <Link to="/cart">
+              <Button>End Purchase</Button>
+            </Link>
+          ) : (
+            <ItemCount stock={updatedStock} onAdd={onAdd} />
+          )}
+        </Stack>
       </Stack>
     </Stack>
   );

@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { CircularProgress } from "@chakra-ui/react";
-import axios from "axios";
 
 import ItemDetail from "./ItemDetail";
 import api from "../../services/api";
@@ -13,13 +12,6 @@ const ItemDetailContainer = () => {
   const [product, setProduct] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const { idProduct } = useParams();
-
-  /*  useEffect(() => {
-    axios(`https://fakestoreapi.com/products/${idProduct}`).then((res) => {
-      setIsLoading(false);
-      setProduct(res.data);
-    });
-  }, []); */
 
   useEffect(() => {
     setIsLoading(true);

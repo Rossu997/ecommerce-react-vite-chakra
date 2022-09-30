@@ -11,7 +11,7 @@ import {
 
 /*---------------------------------------------------------------------*/
 
-const Item = ({ category, description, id, image, price, rating, title }) => {
+const Item = ({ category, id, image, price, title }) => {
   return (
     <Stack
       as="article"
@@ -96,5 +96,4 @@ const Item = ({ category, description, id, image, price, rating, title }) => {
   );
 };
 
-/* EXPORT COMPONENT */
 export default Item;

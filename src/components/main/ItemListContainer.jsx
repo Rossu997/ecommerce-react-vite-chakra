@@ -7,7 +7,7 @@ import api from "../../services/api";
 
 /*---------------------------------------------------------------------*/
 
-const greetings = "todos nuestros productos";
+const greetings = "all our products";
 
 const ItemListContainer = () => {
   const [listProducts, setListProducts] = useState([]);

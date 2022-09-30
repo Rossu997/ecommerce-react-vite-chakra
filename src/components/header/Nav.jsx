@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Stack, Text } from "@chakra-ui/react";
+
 import api from "../../services/api";
+
+/*---------------------------------------------------------------------*/
 
 const Nav = () => {
   const [categories, setCategories] = useState([]);
@@ -22,8 +25,6 @@ const Nav = () => {
             letterSpacing="1px"
             color="black"
             px="1"
-            /* borderBottomColor="brand"
-            borderBottomWidth="1px" */
           >
             {category}
           </Text>

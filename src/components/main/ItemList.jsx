@@ -5,10 +5,6 @@ import Item from "./Item";
 /*---------------------------------------------------------------------*/
 
 const ItemList = ({ products }) => {
-  /* function getRandomStock() {
-    return Math.floor(Math.random() * 10);
-  } */
-
   return (
     <Stack
       as="section"

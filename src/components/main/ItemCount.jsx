@@ -4,7 +4,7 @@ import { Text, Button, Box, Input, Stack } from "@chakra-ui/react";
 /*---------------------------------------------------------------------*/
 
 const ItemCount = ({ stock, onAdd }) => {
-  const [count, setCount] = useState(0 + !!stock);
+  const [count, setCount] = useState(0);
 
   const handlerIncrease = () => {
     count < stock
@@ -117,5 +117,4 @@ const ItemCount = ({ stock, onAdd }) => {
   );
 };
 
-/* EXPORT COMPONENT */
 export default ItemCount;

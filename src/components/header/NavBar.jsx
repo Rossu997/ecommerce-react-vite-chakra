@@ -1,10 +1,8 @@
-/* IMPORT DEPENDENCIES */
 import { Link } from "react-router-dom";
-import { Stack, Image, Container, Box, Heading } from "@chakra-ui/react";
+import { Stack, Container, Box, Heading } from "@chakra-ui/react";
 
-/* IMPORT COMPONENTS */
-import CartWidget from "./CartWidget";
 import Nav from "./Nav";
+import CartWidget from "./CartWidget";
 
 /*---------------------------------------------------------------------*/
 
@@ -35,5 +33,4 @@ const NavBar = () => {
   );
 };
 
-/* EXPORT COMPONENTS */
 export default NavBar;
