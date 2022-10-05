@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IconButton, Box, Stack } from "@chakra-ui/react";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 
@@ -7,7 +7,25 @@ import { CartContext } from "../../context/CartContext";
 /*---------------------------------------------------------------------*/
 
 const CartWidget = () => {
+  const [cartQuantity, setCartQuantity] = useState(0);
   const { cart } = useContext(CartContext);
+
+  //Actualiza la cantidad total de items que hay en el carrito
+  useEffect(() => {
+    if (cart.length > 0) {
+      const newCartQuantity = cart.reduce(
+        (acc, current) => acc + current.quantity,
+        0
+      );
+      setCartQuantity(newCartQuantity);
+      console.log("Entro al effect");
+      console.log("La cantidad de items en el cart es: ", cartQuantity);
+    } else {
+      setCartQuantity(0);
+      console.log("Entro al effect pero no hay nada en el carro");
+    }
+  }, [cart]);
+
   return (
     <Box position="relative">
       <IconButton
@@ -20,7 +38,7 @@ const CartWidget = () => {
         color="neutral"
         icon={<ShoppingCartCheckoutIcon />}
       />
-      {!!cart.length && (
+      {!!cartQuantity && (
         <Box
           bgColor="brand"
           borderRadius="full"
@@ -36,7 +54,7 @@ const CartWidget = () => {
           fontWeight="600"
           fontSize="14px"
         >
-          {cart.length}
+          {cartQuantity}
         </Box>
       )}
     </Box>
