@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Text,
@@ -12,7 +12,7 @@ import {
 
 import ItemCount from "./ItemCount";
 import ReturnHome from "./ReturnHome";
-import { Context } from "../../context/CartContext";
+import { CartContext } from "../../context/CartContext";
 
 /*---------------------------------------------------------------------*/
 
@@ -28,21 +28,15 @@ const ItemDetail = ({
 }) => {
   const [updatedStock, setUpdatedStock] = useState(stock);
   const [goToCartBtn, setGoToCartBtn] = useState(false);
+  const { cart, addToCart } = useContext(CartContext);
 
   const onAdd = (count) => {
     if (count <= updatedStock) {
       setUpdatedStock(updatedStock - count);
-      console.log(
-        `Añadiste ${count} unidades de ${title} (ID: ${id}) al carrito.`
-      );
+      addToCart(count, id, title, price);
       setGoToCartBtn(true);
     }
   };
-
-  //******** */
-  /*  const resultado = useContext(Context);
-  console.log(resultado); */
-  //******** */
 
   return (
     <Stack>

@@ -12,7 +12,6 @@ const ItemDetailContainer = () => {
   const [product, setProduct] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const { idProduct } = useParams();
-
   useEffect(() => {
     setIsLoading(true);
     (async () => {
@@ -20,10 +19,6 @@ const ItemDetailContainer = () => {
       setIsLoading(false);
     })();
   }, [idProduct]);
-
-  function getRandomStock() {
-    return Math.floor(Math.random() * 10);
-  }
 
   if (isLoading) {
     return (
@@ -36,7 +31,7 @@ const ItemDetailContainer = () => {
     );
   }
 
-  return <ItemDetail {...product} stock={getRandomStock()} />;
+  return <ItemDetail {...product} stock="5" />;
 };
 
 export default ItemDetailContainer;

@@ -1,35 +1,59 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Heading, Stack, Text } from "@chakra-ui/react";
+import { Button, Heading, Stack, Text } from "@chakra-ui/react";
 
 import ReturnHome from "./ReturnHome";
-import { Context } from "../../context/CartContext";
+import { CartContext } from "../../context/CartContext";
 
 /*---------------------------------------------------------------------*/
 
 const Cart = () => {
-  /* const { cart } = useContext(Context);
+  const { cart, removeFromCart, resetCart } = useContext(CartContext);
 
-  if (cart.lenght === 0) {
+  if (!cart.length) {
     return (
-      <Heading>
-        No agregaste productos. Agregá alguno de <Link to="/">acá</Link>
-      </Heading>
+      <Stack w="100%">
+        <ReturnHome />
+        <Heading>
+          your cart is empty
+          <Link to="/">
+            <Text color="brand">Lets add some products!</Text>
+          </Link>
+        </Heading>
+      </Stack>
     );
-  } */
-
+  }
   return (
-    <Stack>
+    <Stack w="100%" gap="1rem">
       <ReturnHome />
-      <Heading>
-        No agregaste productos. Agregá alguno de
-        <Link to="/">
-          <Text color="brand">acá</Text>
-        </Link>
-      </Heading>
-      {/* {cart.map((item) => {
-        return <Heading key={item.id}>{item.title}</Heading>;
-      })} */}
+      {cart.map((item) => {
+        return (
+          <Stack key={item.id} bgColor="neutralLight" p="2">
+            <Stack>
+              <Heading fontSize="1rem">{item.title}</Heading>
+              <Text>{`Precio: $${item.price}`}</Text>
+              <Text>{`Cantidad: ${item.quantity}`}</Text>
+            </Stack>
+            <Stack>
+              <Button onClick={() => removeFromCart(item.id)}>
+                Remove Item
+              </Button>
+            </Stack>
+          </Stack>
+        );
+      })}
+      <Stack flexDirection="row-reverse" alignItems="baseline" gap="1rem">
+        <Button
+          onClick={() => resetCart()}
+          w="fit-content"
+          bgColor="nautralLight"
+        >
+          Clear Cart
+        </Button>
+        <Button w="fit-content" bgColor="primary" color="white">
+          End Purchase
+        </Button>
+      </Stack>
     </Stack>
   );
 };
