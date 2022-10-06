@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 /*---------------------------------------------------------------------*/
 //{Provider(trae la info. mensajero), Consumer(la info. mensaje)}
@@ -6,9 +6,14 @@ import { createContext, useState } from "react";
 //Usamos el hook useContext en el componente que queremos usar las props
 
 export const CartContext = createContext();
+const cartLS = JSON.parse(localStorage.getItem("cart"));
 
 const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(cartLS || []);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   //Añade un item al carrito o aumenta la cantidad de un item que ya se encuentre en el carrito
   const addToCart = (quantity, id, title, price) => {

@@ -18,11 +18,8 @@ const CartWidget = () => {
         0
       );
       setCartQuantity(newCartQuantity);
-      console.log("Entro al effect");
-      console.log("La cantidad de items en el cart es: ", cartQuantity);
     } else {
       setCartQuantity(0);
-      console.log("Entro al effect pero no hay nada en el carro");
     }
   }, [cart]);
 
