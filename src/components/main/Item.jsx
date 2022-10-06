@@ -29,12 +29,7 @@ const Item = ({ category, id, image, price, title }) => {
     >
       <Stack alignItems="center" gap="4">
         <Link to={`/item/${id}`}>
-          <Image
-            src={image}
-            alt={"some alt text"}
-            h="300px"
-            objectFit="contain"
-          />
+          <Image src={image} alt={title} h="300px" objectFit="contain" />
         </Link>
         <Box>
           <Link to={`/category/${category}`}>

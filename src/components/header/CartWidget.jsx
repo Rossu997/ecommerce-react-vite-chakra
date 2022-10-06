@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { IconButton, Box, Stack } from "@chakra-ui/react";
-import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
 import { CartContext } from "../../context/CartContext";
 
@@ -33,7 +33,7 @@ const CartWidget = () => {
         p="6"
         borderRadius="full"
         color="neutral"
-        icon={<ShoppingCartCheckoutIcon />}
+        icon={<ShoppingCartOutlinedIcon />}
       />
       {!!cartQuantity && (
         <Box

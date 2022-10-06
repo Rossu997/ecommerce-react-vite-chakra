@@ -8,7 +8,7 @@ import CartWidget from "./CartWidget";
 
 const NavBar = () => {
   return (
-    <Box as="header" marginBottom="20" boxShadow="12px 12px 24px #e6e6e6">
+    <Box as="header" boxShadow="12px 12px 24px #e6e6e6">
       <Container
         maxWidth="8xl"
         display="flex"

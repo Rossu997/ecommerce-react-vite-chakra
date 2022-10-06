@@ -27,30 +27,26 @@ const ItemListContainer = () => {
     })();
   }, [categoryName]);
 
-  // Se podría hacer una carga parcial de productos en el home
-  // 'https://fakestoreapi.com/products?limit=5'
-  // Y luego llamar un componente con un botón "cargar más"
-  // Tambien en vez de un spinner usar cards en gris como placeholders
-
   if (isLoading) {
     return (
       <CircularProgress
         isIndeterminate
         color="brand"
         size="20vw"
-        height="100vh"
+        height="100%"
       />
     );
   }
 
   return (
-    <Stack as="main" justifyContent="center" gap="10">
+    <Stack as="main" justifyContent="center">
       <Heading
         as="h2"
         size="4xl"
         textAlign="center"
         fontFamily="heading"
         color="primary"
+        mb="4rem"
       >
         {categoryName ? categoryName : greetings}
       </Heading>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Text, Button, Box, Input, Stack } from "@chakra-ui/react";
+import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 
 /*---------------------------------------------------------------------*/
 
@@ -7,13 +8,11 @@ const ItemCount = ({ stock, onAdd }) => {
   const [count, setCount] = useState(0);
 
   const handlerIncrease = () => {
-    count < stock
-      ? setCount(count + 1)
-      : console.log("Cantidad máxima alcanzada");
+    count < stock && setCount(count + 1);
   };
 
   const handlerDecrease = () => {
-    count > 1 ? setCount(count - 1) : console.log("Cantidad mínima alcanzada");
+    count > 1 && setCount(count - 1);
   };
 
   useEffect(() => {
@@ -30,6 +29,7 @@ const ItemCount = ({ stock, onAdd }) => {
         gap="5"
       >
         <Button
+          onClick={handlerDecrease}
           size="sm"
           fontWeight="400"
           fontSize="md"
@@ -42,7 +42,6 @@ const ItemCount = ({ stock, onAdd }) => {
               ? "-2px -2px 10px #d6d6d6, 2px 2px 10px #ffffff"
               : "inset -3px -3px 8px #dddddd, inset 3px 3px 8px #ffffff !important"
           }
-          onClick={handlerDecrease}
         >
           -
         </Button>
@@ -57,14 +56,14 @@ const ItemCount = ({ stock, onAdd }) => {
           fontFamily="text"
         />
         <Button
+          onClick={handlerIncrease}
           size="sm"
           fontWeight="400"
           fontSize="md"
           color="neutral"
           backgroundColor="white"
           borderRadius="5"
-          onClick={handlerIncrease}
-          disabled={stock <= 0 || count === stock}
+          disabled={stock <= 0 || count >= stock}
           boxShadow={
             count < stock
               ? "-2px -2px 10px #d6d6d6, 2px 2px 10px #ffffff"
@@ -90,6 +89,7 @@ const ItemCount = ({ stock, onAdd }) => {
         textTransform="uppercase"
         width="xs"
         textAlign="center"
+        leftIcon={<AddShoppingCartOutlinedIcon />}
       >
         {stock ? "Add to cart" : "Out of stock"}
       </Button>

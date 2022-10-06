@@ -15,16 +15,15 @@ import CartProvider from "./context/CartContext";
 function App() {
   return (
     <BrowserRouter>
-      <Stack minHeight="100vh" justifyContent="space-between">
+      <Stack minHeight="100vh" gap="4rem">
         <CartProvider>
           <NavBar />
           <Container
+            maxWidth="8xl"
             display="flex"
+            flexDirection="column"
             alignSelf="center"
             alignItems="center"
-            justifyContent="center"
-            maxWidth="8xl"
-            margin="0 auto"
           >
             <Routes>
               <Route exact path="/" element={<ItemListContainer />} />

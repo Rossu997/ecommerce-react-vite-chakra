@@ -1,19 +1,29 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Button, Heading, Stack, Text } from "@chakra-ui/react";
+import { Button, Heading, Stack, Text, Image, Box } from "@chakra-ui/react";
 
-import ReturnHome from "./ReturnHome";
+import ReturnNavigation from "./ReturnNavigation";
 import { CartContext } from "../../context/CartContext";
+import ResetCartAlert from "./ResetCartAlert";
 
+{
+  /* <Button
+          onClick={() => resetCart()}
+          w="fit-content"
+          bgColor="nautralLight"
+        >
+          Clear Cart
+        </Button> */
+}
 /*---------------------------------------------------------------------*/
 
 const Cart = () => {
-  const { cart, removeFromCart, resetCart } = useContext(CartContext);
+  const { cart, removeFromCart } = useContext(CartContext);
 
   if (!cart.length) {
     return (
       <Stack w="100%">
-        <ReturnHome />
+        <ReturnNavigation />
         <Heading>
           your cart is empty
           <Link to="/">
@@ -25,31 +35,44 @@ const Cart = () => {
   }
   return (
     <Stack w="100%" gap="1rem">
-      <ReturnHome />
+      <ReturnNavigation />
       {cart.map((item) => {
         return (
-          <Stack key={item.id} bgColor="neutralLight" p="2">
+          <Stack
+            key={item.id}
+            bgColor="neutralLight"
+            p="4"
+            flexDir="row"
+            gap="2rem"
+          >
+            <Box
+              w="120px"
+              h="120px"
+              bgColor="white"
+              borderRadius="20px"
+              px="10px"
+            >
+              <Image
+                src={item.image}
+                alt={item.title}
+                h="100px"
+                objectFit="contain"
+                m="10px auto"
+              />
+            </Box>
             <Stack>
-              <Heading fontSize="1rem">{item.title}</Heading>
+              <Heading fontSize="1rem" maxW="80%">
+                {item.title}
+              </Heading>
               <Text>{`Precio: $${item.price}`}</Text>
               <Text>{`Cantidad: ${item.quantity}`}</Text>
             </Stack>
-            <Stack>
-              <Button onClick={() => removeFromCart(item.id)}>
-                Remove Item
-              </Button>
-            </Stack>
+            <Button onClick={() => removeFromCart(item.id)}>X</Button>
           </Stack>
         );
       })}
-      <Stack flexDirection="row-reverse" alignItems="baseline" gap="1rem">
-        <Button
-          onClick={() => resetCart()}
-          w="fit-content"
-          bgColor="nautralLight"
-        >
-          Clear Cart
-        </Button>
+      <Stack flexDirection="row-reverse" alignItems="end" gap="1rem">
+        <ResetCartAlert />
         <Button w="fit-content" bgColor="primary" color="white">
           End Purchase
         </Button>

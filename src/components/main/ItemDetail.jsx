@@ -9,9 +9,10 @@ import {
   Stack,
   Button,
 } from "@chakra-ui/react";
+import ShoppingCartCheckoutOutlinedIcon from "@mui/icons-material/ShoppingCartCheckoutOutlined";
 
 import ItemCount from "./ItemCount";
-import ReturnHome from "./ReturnHome";
+import ReturnNavigation from "./ReturnNavigation";
 import { CartContext } from "../../context/CartContext";
 
 /*---------------------------------------------------------------------*/
@@ -33,14 +34,14 @@ const ItemDetail = ({
   const onAdd = (count) => {
     if (count <= updatedStock) {
       setUpdatedStock(updatedStock - count);
-      addToCart(count, id, title, price);
+      addToCart(count, id, title, price, image);
       setGoToCartBtn(true);
     }
   };
 
   return (
     <Stack>
-      <ReturnHome />
+      <ReturnNavigation />
       <Stack
         as="main"
         maxW="8xl"
@@ -86,12 +87,20 @@ const ItemDetail = ({
               </Heading>
             </Box>
           </Box>
-          {goToCartBtn ? (
-            <Link to="/cart">
-              <Button>End Purchase</Button>
-            </Link>
-          ) : (
-            <ItemCount stock={updatedStock} onAdd={onAdd} />
+          <ItemCount stock={updatedStock} onAdd={onAdd} />
+          {goToCartBtn && (
+            <Stack flexDir="row-reverse">
+              <Link to="/cart">
+                <Button
+                  leftIcon={<ShoppingCartCheckoutOutlinedIcon />}
+                  bgColor="brand"
+                  color="white"
+                  colorScheme="brand"
+                >
+                  End Purchase
+                </Button>
+              </Link>
+            </Stack>
           )}
         </Stack>
       </Stack>
