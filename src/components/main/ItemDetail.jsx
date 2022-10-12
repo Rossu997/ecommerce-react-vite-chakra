@@ -39,22 +39,22 @@ const ItemDetail = ({
   };
 
   return (
-    <Stack>
+    <Stack as="main">
       <ReturnNavigation />
       <Stack
-        as="main"
+        as="article"
         maxW="8xl"
         minW="md"
         borderWidth="1px"
         borderRadius="lg"
+        bgColor="white"
         flexDir="row"
         gap="20"
         px="5rem"
         py="2rem"
-        bgColor="white"
       >
         <Image src={image} alt={title} maxH="600px" objectFit="contain" />
-        <Stack justifyContent="space-between">
+        <Stack as="section" justifyContent="space-between">
           <Box>
             <Link to={`/category/${category}`}>
               <Badge

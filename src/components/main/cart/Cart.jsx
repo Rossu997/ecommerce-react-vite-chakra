@@ -15,44 +15,15 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { CartContext } from "../../../context/CartContext";
 import ReturnNavigation from "../ReturnNavigation";
 import ResetCartAlert from "./ResetCartAlert";
-import ClientForm from "./ClientForm";
-
-import { db, DB_COLLECTIONS } from "../../../firebase/firebase";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 /*---------------------------------------------------------------------*/
 
 const Cart = () => {
   const { cart, totalPrice, removeFromCart } = useContext(CartContext);
 
-  const clientData = {
-    "first name": "Juan", //Esto lo tengo que sacara de un formulario, para que lo llene el usuario
-    "last name": "Perez",
-    email: "juanperez@gmail.com",
-  };
-
-  const endPurchase = () => {
-    const dbCollection = collection(db, DB_COLLECTIONS[1]);
-    (async () => {
-      try {
-        const post = await addDoc(dbCollection, {
-          client: clientData,
-          items: cart,
-          time: serverTimestamp(),
-          total: totalPrice,
-        });
-        console.log("post id response: ", post.id);
-        //aca pone el clear del carrito
-      } catch (error) {
-        setError(true);
-        console.log(error);
-      }
-    })();
-  };
-
   if (!cart.length) {
     return (
-      <Stack w="100%">
+      <Stack as="main" w="100%">
         <ReturnNavigation />
         <Heading>
           your cart is empty
@@ -64,7 +35,7 @@ const Cart = () => {
     );
   }
   return (
-    <Stack as="article" w="100%" gap="1rem">
+    <Stack as="main" w="100%" gap="1rem">
       <ReturnNavigation />
       {cart.map((item) => {
         return (
@@ -73,7 +44,7 @@ const Cart = () => {
             p="4"
             flexDir="row"
             gap="2rem"
-            bgColor="#fff"
+            bgColor="white"
             borderRadius="20px"
             boxShadow="-5px -5px 10px #dddddd, 5px 5px 10px #ffffff"
           >
@@ -122,19 +93,26 @@ const Cart = () => {
           </Stack>
         );
       })}
-      <Stack>
-        <Heading fontSize="1rem" color="brand">
-          Total price
-        </Heading>
-        <Heading>${totalPrice}</Heading>
+      <Stack flexDirection="row-reverse">
+        <Box mt="4rem">
+          <Heading fontSize="1rem" color="brand" textAlign="right">
+            Final Price
+          </Heading>
+          <Heading>${totalPrice}</Heading>
+        </Box>
       </Stack>
       <Stack flexDirection="row-reverse" alignItems="end" gap="1rem">
-        <ResetCartAlert />
-        <Button w="fit-content" bgColor="green.400" color="white">
-          💸 End Purchase 💸
+        <Button
+          as={ReachLink}
+          to={"/cart/buying"}
+          w="fit-content"
+          bgColor="brand"
+          color="white"
+        >
+          Continue
         </Button>
+        <ResetCartAlert />
       </Stack>
-      <ClientForm />
     </Stack>
   );
 };

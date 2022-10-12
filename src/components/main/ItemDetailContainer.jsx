@@ -34,29 +34,6 @@ const ItemDetailContainer = () => {
     })();
   }, [idProduct]);
 
-  /* getDoc(dbDoc)
-      .then((data) => {
-        setProduct({
-          id: data.id,
-          ...data.data(),
-        });
-      })
-      .catch(() => {
-        setError(true);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [idProduct]); */
-
-  /* useEffect(() => {
-    setIsLoading(true);
-    (async () => {
-      setProduct(await api.getSingleProduct(idProduct));
-      setIsLoading(false);
-    })();
-  }, [idProduct]); */
-
   if (isLoading) {
     return (
       <CircularProgress

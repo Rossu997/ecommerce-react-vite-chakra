@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app"; //gral prar todos los servicios de firebase
-import { getFirestore } from "firebase/firestore"; //Para el store de FB
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBeTA0_QExb52WfWh8nFN9hiVdHTUaTBqo",
@@ -15,10 +15,4 @@ export const db = getFirestore(app);
 
 /*---------------------------------------------------------------------*/
 
-export const DB_COLLECTIONS = ["listProducts", "sells"];
-export const DB_CATEGORIES = [
-  "electronics",
-  "jewelery",
-  "men's clothing",
-  "women's clothing",
-];
+export const DB_COLLECTIONS = ["products", "sells", "categories"];

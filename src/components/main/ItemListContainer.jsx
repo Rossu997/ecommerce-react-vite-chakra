@@ -25,13 +25,13 @@ const ItemListContainer = () => {
     (async () => {
       try {
         const data = await getDocs(toGet);
-        const dbListProducts = data.docs.map((product) => {
+        const dbProducts = data.docs.map((product) => {
           return {
             id: product.id,
             ...product.data(),
           };
         });
-        setListProducts(dbListProducts);
+        setListProducts(dbProducts);
       } catch (error) {
         setError(true);
         console.log(error);
@@ -40,20 +40,6 @@ const ItemListContainer = () => {
       }
     })();
   }, [categoryName]);
-
-  /* useEffect(() => {
-    setIsLoading(true);
-    (async () => {
-      if (categoryName) {
-        setListProducts(await api.getProductsByCategory(categoryName));
-        setIsLoading(false);
-        return;
-      }
-      setListProducts(await api.getAllProducts());
-      setIsLoading(false);
-    })();
-  }, [categoryName]);
-   */
 
   if (isLoading) {
     return (
