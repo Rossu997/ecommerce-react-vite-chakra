@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { CircularProgress, Heading, Stack } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
+import { getDocs, collection, query, where } from "firebase/firestore";
 
 import ItemList from "./ItemList";
-import api from "../../services/api";
+import { db, DB_COLLECTIONS } from "../../firebase/firebase";
 
 /*---------------------------------------------------------------------*/
 
@@ -15,6 +16,32 @@ const ItemListContainer = () => {
   const { categoryName } = useParams();
 
   useEffect(() => {
+    const dbCollection = collection(db, DB_COLLECTIONS[0]);
+    let toGet = dbCollection;
+    if (categoryName) {
+      toGet = query(dbCollection, where("category", "==", categoryName));
+    }
+
+    (async () => {
+      try {
+        const data = await getDocs(toGet);
+        const dbListProducts = data.docs.map((product) => {
+          return {
+            id: product.id,
+            ...product.data(),
+          };
+        });
+        setListProducts(dbListProducts);
+      } catch (error) {
+        setError(true);
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, [categoryName]);
+
+  /* useEffect(() => {
     setIsLoading(true);
     (async () => {
       if (categoryName) {
@@ -26,6 +53,7 @@ const ItemListContainer = () => {
       setIsLoading(false);
     })();
   }, [categoryName]);
+   */
 
   if (isLoading) {
     return (

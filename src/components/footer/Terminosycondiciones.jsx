@@ -1,4 +1,5 @@
 import React from "react";
+/* import postdb from "../../services/postdb"; */
 
 export const Terminosycondiciones = () => {
   return (

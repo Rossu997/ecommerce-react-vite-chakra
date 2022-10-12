@@ -11,7 +11,7 @@ const ItemList = ({ products }) => {
       flexWrap="wrap"
       flexDir="row"
       justifyContent="center"
-      gap="100px"
+      gap="50px"
     >
       {products.map((item) => {
         return <Item {...item} key={item.id} />;

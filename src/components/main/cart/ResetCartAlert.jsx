@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import {
   useDisclosure,
   Button,
-  Icon,
   AlertDialog,
   AlertDialogBody,
   AlertDialogFooter,
@@ -13,7 +12,7 @@ import {
 import RemoveShoppingCartOutlinedIcon from "@mui/icons-material/RemoveShoppingCartOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 
-import { CartContext } from "../../context/CartContext";
+import { CartContext } from "../../../context/CartContext";
 
 /*---------------------------------------------------------------------*/
 
@@ -26,6 +25,7 @@ const ResetCartAlert = () => {
     <>
       <Button
         bgColor="white"
+        color="neutral"
         onClick={onOpen}
         leftIcon={<RemoveShoppingCartOutlinedIcon />}
       >

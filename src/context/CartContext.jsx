@@ -10,9 +10,24 @@ const cartLS = JSON.parse(localStorage.getItem("cart"));
 
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(cartLS || []);
+  const [totalPrice, setTotalPrice] = useState(0);
 
+  //Persiste en LocalStorage el cart
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  //Calcula el precio total del cart
+  useEffect(() => {
+    if (cart.length > 0) {
+      const newTotalPrice = cart.reduce(
+        (acc, current) => acc + current.price * current.quantity,
+        0
+      );
+      setTotalPrice(newTotalPrice);
+    } else {
+      setTotalPrice(0);
+    }
   }, [cart]);
 
   //Añade un item al carrito o aumenta la cantidad de un item que ya se encuentre en el carrito
@@ -32,6 +47,11 @@ const CartProvider = ({ children }) => {
     }
   };
 
+  //Funcion interna que checkea si un item ya está en el carrito
+  const isInCart = (itemId) => {
+    return cart.findIndex((e) => e.id === itemId);
+  };
+
   //Busca un item que esté en el carrito y lo elimina
   const removeFromCart = (id) => {
     const newCart = cart.filter((cartItem) => cartItem.id !== id);
@@ -43,14 +63,9 @@ const CartProvider = ({ children }) => {
     setCart([]);
   };
 
-  //Funcion interna que checkea si un item ya está en el carrito
-  const isInCart = (itemId) => {
-    return cart.findIndex((e) => e.id === itemId);
-  };
-
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, resetCart }}
+      value={{ cart, totalPrice, addToCart, removeFromCart, resetCart }}
     >
       {children}
     </CartContext.Provider>

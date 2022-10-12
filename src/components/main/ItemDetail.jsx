@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Text,
@@ -24,7 +24,6 @@ const ItemDetail = ({
   id,
   image,
   price,
-  rating,
   title,
 }) => {
   const [updatedStock, setUpdatedStock] = useState(stock);
@@ -97,7 +96,7 @@ const ItemDetail = ({
                   color="white"
                   colorScheme="brand"
                 >
-                  End Purchase
+                  Continue to cart
                 </Button>
               </Link>
             </Stack>

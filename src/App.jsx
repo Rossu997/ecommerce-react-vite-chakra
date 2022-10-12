@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Container, Stack } from "@chakra-ui/react";
 
 import NavBar from "./components/header/NavBar";
-import Cart from "./components/main/Cart";
+import Cart from "./components/main/cart/Cart";
 import ItemListContainer from "./components/main/ItemListContainer";
 import ItemDetailContainer from "./components/main/ItemDetailContainer";
 import Footer from "./components/footer/Footer";

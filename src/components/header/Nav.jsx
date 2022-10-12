@@ -2,18 +2,24 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Stack, Text } from "@chakra-ui/react";
 
-import api from "../../services/api";
+import { DB_CATEGORIES } from "../../firebase/firebase";
 
 /*---------------------------------------------------------------------*/
 
 const Nav = () => {
   const [categories, setCategories] = useState([]);
 
+  //Saqué el fetch de las categorías para el navbar porque me parece que es algo que no cambia muy a menudo y es innecesario que esté haciendo peticiones al db todo el tiempo.
+
   useEffect(() => {
+    setCategories(DB_CATEGORIES);
+  }, []);
+
+  /* useEffect(() => {
     (async () => {
       setCategories(await api.getAllCategories());
     })();
-  }, []);
+  }, []); */
 
   return (
     <Stack as="nav" flexDir="row" gap="7" alignItems="baseline">

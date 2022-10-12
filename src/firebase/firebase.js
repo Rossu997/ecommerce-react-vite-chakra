@@ -12,3 +12,13 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+
+/*---------------------------------------------------------------------*/
+
+export const DB_COLLECTIONS = ["listProducts", "sells"];
+export const DB_CATEGORIES = [
+  "electronics",
+  "jewelery",
+  "men's clothing",
+  "women's clothing",
+];
