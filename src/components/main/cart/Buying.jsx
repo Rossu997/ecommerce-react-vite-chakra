@@ -1,39 +1,37 @@
-import { useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { Button, Text, Heading, Stack } from "@chakra-ui/react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 import { db, DB_COLLECTIONS } from "../../../firebase/firebase";
-import ReturnNavigation from "../ReturnNavigation";
+import { CartContext } from "../../../context/CartContext";
 import ClientForm from "./ClientForm";
+import PurchaseModal from "./PurchaseModal";
 
 /*---------------------------------------------------------------------*/
 
-const datosComprador = {
-  "first name": "Juan", //Esto lo tengo que sacara de un formulario, para que lo llene el usuario
-  "last name": "Perez",
-  email: "juanperez@gmail.com",
-};
-
-const endPurchase = () => {
-  const dbCollection = collection(db, DB_COLLECTIONS[1]);
-  (async () => {
-    try {
-      const post = await addDoc(dbCollection, {
-        client: clientData,
-        items: cart,
-        time: serverTimestamp(),
-        total: totalPrice,
-      });
-      console.log("post id response: ", post.id);
-      //aca pone el clear del carrito
-    } catch (error) {
-      setError(true);
-      console.log(error);
-    }
-  })();
-};
-
 const Buying = () => {
+  const { cart, cartQuantity, totalPrice, resetCart } = useContext(CartContext);
+  const [postData, setPostData] = useState("");
+
+  const endPurchase = (clientData) => {
+    const dbCollection = collection(db, DB_COLLECTIONS[1]);
+    (async () => {
+      try {
+        const post = await addDoc(dbCollection, {
+          client: clientData,
+          items: cart,
+          time: serverTimestamp(),
+          total: totalPrice,
+        });
+        console.log("post id response: ", post.id);
+        setPostData(post.id);
+        resetCart();
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  };
+
   return (
     <Stack as="main" gap="1rem" w="100%">
       <Stack as="article" flexDirection="row-reverse" gap="4rem">
@@ -47,7 +45,25 @@ const Buying = () => {
           bgColor="white"
           w="30%"
         >
-          <Text>Purchse summary</Text>
+          <Heading fontSize="1rem" color="neutral">
+            Purchse summary
+          </Heading>
+          <Stack
+            flexDirection="row"
+            alignItems="baseline"
+            justifyContent="space-between"
+          >
+            <Text>{`Products (${cartQuantity})`}</Text>
+            <Text>{`$${totalPrice}`}</Text>
+          </Stack>
+          <Stack
+            flexDirection="row"
+            alignItems="baseline"
+            justifyContent="space-between"
+          >
+            <Text>{`Shipping`}</Text>
+            <Text color="green.400">Free</Text>
+          </Stack>
         </Stack>
         <Stack
           as="section"
@@ -61,7 +77,8 @@ const Buying = () => {
           <Heading fontSize="2rem" mb="2rem">
             One last step...
           </Heading>
-          <ClientForm />
+          <ClientForm endPurchase={endPurchase} />
+          {postData && <PurchaseModal code={postData} />}
         </Stack>
       </Stack>
     </Stack>

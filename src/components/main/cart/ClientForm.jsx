@@ -8,6 +8,7 @@ import {
   Heading,
   Divider,
   Button,
+  Icon,
   Input,
   InputGroup,
   InputLeftAddon,
@@ -19,33 +20,37 @@ import {
   FormControl,
   FormHelperText,
 } from "@chakra-ui/react";
+import PortraitOutlinedIcon from "@mui/icons-material/PortraitOutlined";
+import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 
 /*---------------------------------------------------------------------*/
 
-const ClientForm = () => {
-  const [clientData, setClientData] = useState("");
-
+const ClientForm = ({ endPurchase }) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm({
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-    },
-  });
+  } = useForm({});
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    endPurchase(data);
+  };
 
   return (
     <Stack>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box my="2rem" borderWidth="1px" borderColor="neutralLight" />
-        <Heading fontSize="1rem" mb="1rem">
-          Customer information
-        </Heading>
+        <Stack
+          flexDirection="row"
+          alignItems="center"
+          gap="0.5rem"
+          color="primary"
+        >
+          <Icon as={PortraitOutlinedIcon} />
+          <Heading fontSize="1rem" mb="1rem" justifyContent="baseline">
+            Customer information
+          </Heading>
+        </Stack>
         <Stack flexDirection="row" gap="2rem" alignItems="baseline">
           <FormControl isInvalid={errors.firstName}>
             <Input
@@ -138,10 +143,10 @@ const ClientForm = () => {
               },
             })}
           >
-            <option value="Argentina">Argentina</option>
-            <option value="Tanzania">Tanzania</option>
-            <option value="Papua New Guinea">Papua New Guinea</option>
-            <option value="Uzbekistan">Uzbekistan</option>
+            <option value="argentina">Argentina</option>
+            <option value="tanzania">Tanzania</option>
+            <option value="papuaNewGuinea">Papua New Guinea</option>
+            <option value="uzbekistan">Uzbekistan</option>
           </Select>
           <FormErrorMessage>
             {errors.country && errors.country.message}
@@ -149,9 +154,18 @@ const ClientForm = () => {
         </FormControl>
 
         <Box my="2rem" borderWidth="1px" borderColor="neutralLight" />
-        <Heading fontSize="1rem" mb="1rem">
-          Payment information
-        </Heading>
+
+        <Stack
+          flexDirection="row"
+          alignItems="center"
+          gap="0.5rem"
+          color="primary"
+        >
+          <Icon as={PaymentsOutlinedIcon} />
+          <Heading fontSize="1rem" mb="1rem" justifyContent="baseline">
+            Payment information
+          </Heading>
+        </Stack>
 
         <FormControl isInvalid={errors.paymentMethod} mt="1rem">
           <Select
@@ -164,8 +178,8 @@ const ClientForm = () => {
               },
             })}
           >
-            <option value="Credit Card">Credit Card</option>
-            <option value="Debit Card" disabled>
+            <option value="creditCard">Credit Card</option>
+            <option value="debitCard" disabled>
               Debit Card
             </option>
           </Select>
@@ -201,6 +215,7 @@ const ClientForm = () => {
             placeholder="Card number"
             value="4273433812838"
             type="number"
+            letterSpacing="2px"
             {...register("cardNumber", {
               required: {
                 value: true,
@@ -278,15 +293,21 @@ const ClientForm = () => {
           </FormErrorMessage>
         </FormControl>
 
-        <Stack flexDirection="row-reverse" alignItems="baseline" gap="1rem">
+        <Stack
+          flexDirection="row-reverse"
+          alignItems="baseline"
+          gap="1rem"
+          mt="2rem"
+        >
           <Button
             mt="2rem"
             color="white"
             backgroundColor="green.400"
-            isLoading={isSubmitting}
             type="submit"
+            px="1rem"
+            isLoading={isSubmitting}
           >
-            Submit
+            Finish!
           </Button>
           <Button as={ReachLink} to="/cart" bgColor="white" color="neutral">
             Return to cart
@@ -299,7 +320,7 @@ const ClientForm = () => {
               fontWeight="300"
               fontSize="0.9rem"
             >
-              Quiero enterarme de las mejores ofertas antes que nadie! (spam)
+              I want to recive emails with the best deals! (spam)
             </FormLabel>
             <Switch id="spam" colorScheme="green" size="sm" defaultChecked />
           </FormControl>

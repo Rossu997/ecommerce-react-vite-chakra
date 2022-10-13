@@ -19,7 +19,6 @@ const Item = ({ category, id, image, price, title }) => {
       alignItems="center"
       justifyContent="space-between"
       w="sm"
-      /* h="700px" */
       p="2rem"
       margin="0 !important"
       bgColor="#fff"
