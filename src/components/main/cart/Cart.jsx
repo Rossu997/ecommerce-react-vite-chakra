@@ -15,12 +15,12 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { CartContext } from "../../../context/CartContext";
 import ReturnNavigation from "../ReturnNavigation";
 import ResetCartAlert from "./ResetCartAlert";
+import CartItemCount from "./CartItemCount";
 
 /*---------------------------------------------------------------------*/
 
 const Cart = () => {
   const { cart, totalPrice, removeFromCart } = useContext(CartContext);
-
   if (!cart.length) {
     return (
       <Stack as="main" w="100%">
@@ -35,45 +35,70 @@ const Cart = () => {
     );
   }
   return (
-    <Stack as="main" w="100%" gap="1rem">
+    <Stack as="main" w="100%" gap="2rem">
       <ReturnNavigation />
       {cart.map((item) => {
         return (
           <Stack
             key={item.id}
-            p="4"
+            py="4"
+            px="8"
             flexDir="row"
-            gap="2rem"
+            justifyContent="space-between"
             bgColor="white"
             borderRadius="20px"
             boxShadow="-5px -5px 10px #dddddd, 5px 5px 10px #ffffff"
+            position="relative"
           >
-            <Box
-              w="120px"
-              h="120px"
-              bgColor="white"
-              borderRadius="20px"
-              px="10px"
+            <Stack
+              flexDirection="row"
+              gap="6rem"
+              justifyContent="space-between"
+              alignItems="center"
             >
-              <Link as={ReachLink} to={`/item/${item.id}`} mb="1rem">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  h="100px"
-                  objectFit="contain"
-                  m="10px auto"
-                />
-              </Link>
-            </Box>
+              <Stack flexDirection="row" gap="2rem" alignItems="center">
+                <Box
+                  w="120px"
+                  h="120px"
+                  bgColor="white"
+                  borderRadius="20px"
+                  px="10px"
+                >
+                  <Link as={ReachLink} to={`/item/${item.id}`}>
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      h="100px"
+                      objectFit="contain"
+                      m="10px auto"
+                    />
+                  </Link>
+                </Box>
+                <Stack
+                  borderLeftColor="neutral"
+                  borderLeftWidth="1px"
+                  pl="2rem"
+                  maxWidth="lg"
+                >
+                  <Link
+                    as={ReachLink}
+                    to={`/item/${item.id}`}
+                    _hover={{
+                      color: "brand",
+                    }}
+                  >
+                    <Heading fontSize="1rem">{item.title}</Heading>
+                  </Link>
+                  <Text color="neutral">{`Price: $${item.price}`}</Text>
+                </Stack>
+              </Stack>
 
-            <Stack borderLeftColor="neutral" borderLeftWidth="1px" pl="2rem">
-              <Heading fontSize="1rem">{item.title}</Heading>
-              <Text>{`Price: $${item.price}`}</Text>
-            </Stack>
+              <CartItemCount quantity={item.quantity} id={item.id} />
 
-            <Stack>
-              <Heading fontSize="2rem">${item.price * item.quantity}</Heading>
-              <Text>{`Quantity: ${item.quantity}`}</Text>
+              <Stack>
+                <Heading fontSize="2rem">${item.price * item.quantity}</Heading>
+                <Text>{`Quantity: ${item.quantity}`}</Text>
+              </Stack>
             </Stack>
 
             <IconButton
@@ -85,6 +110,9 @@ const Cart = () => {
               borderRadius="full"
               color="neutral"
               icon={<CloseOutlinedIcon />}
+              position="absolute"
+              top="4px"
+              right="10px"
               _hover={{
                 backgroundColor: "red",
                 color: "white",

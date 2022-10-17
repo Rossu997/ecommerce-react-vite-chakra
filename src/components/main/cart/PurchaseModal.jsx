@@ -34,7 +34,7 @@ const PurchaseModal = ({ code }) => {
               Thank you!
             </Heading>
             <Text mb="1rem">
-              Whit this code you can track the status of your purchase:
+              With this code you can track the status of your purchase:
             </Text>
             <Editable
               mt="2rem"

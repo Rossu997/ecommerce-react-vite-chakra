@@ -7,7 +7,7 @@ import { CartContext } from "../../context/CartContext";
 /*---------------------------------------------------------------------*/
 
 const CartWidget = () => {
-  const { cart, cartQuantity } = useContext(CartContext);
+  const { cart, cartUnits } = useContext(CartContext);
 
   return (
     <Box position="relative">
@@ -21,7 +21,7 @@ const CartWidget = () => {
         color="neutral"
         icon={<ShoppingCartOutlinedIcon />}
       />
-      {!!cartQuantity && (
+      {!!cartUnits && (
         <Box
           bgColor="brand"
           borderRadius="full"
@@ -37,7 +37,7 @@ const CartWidget = () => {
           fontWeight="600"
           fontSize="14px"
         >
-          {cartQuantity}
+          {cartUnits}
         </Box>
       )}
     </Box>

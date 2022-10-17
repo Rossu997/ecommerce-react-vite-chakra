@@ -10,7 +10,7 @@ const cartLS = JSON.parse(localStorage.getItem("cart"));
 
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(cartLS || []);
-  const [cartQuantity, setCartQuantity] = useState(0);
+  const [cartUnits, setCartUnits] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
   //Persiste cart en LocalStorage
@@ -34,13 +34,13 @@ const CartProvider = ({ children }) => {
   //Calcula la cantidad de unidades en cart
   useEffect(() => {
     if (cart.length > 0) {
-      const newCartQuantity = cart.reduce(
+      const newcartUnits = cart.reduce(
         (acc, current) => acc + current.quantity,
         0
       );
-      setCartQuantity(newCartQuantity);
+      setCartUnits(newcartUnits);
     } else {
-      setCartQuantity(0);
+      setCartUnits(0);
     }
   }, [cart]);
 
@@ -81,7 +81,7 @@ const CartProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         cart,
-        cartQuantity,
+        cartUnits,
         totalPrice,
         addToCart,
         removeFromCart,
