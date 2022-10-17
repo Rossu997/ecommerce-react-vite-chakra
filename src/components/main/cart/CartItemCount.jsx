@@ -1,24 +1,46 @@
-import { useContext, useState, useEffect } from "react";
-import { Text, Button, Box, Input, Stack } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import {
+  Text,
+  Button,
+  Box,
+  Input,
+  Stack,
+  CircularProgress,
+} from "@chakra-ui/react";
 
 import db from "../../../services/db";
 
 /*---------------------------------------------------------------------*/
 
-const ItemCount = ({ stock }) => {
-  const [count, setCount] = useState(0);
+const ItemCount = ({ stock, id, quantity, onModifyQuantity }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [count, setCount] = useState(quantity);
+  const [updatedStock, setupdatedStock] = useState(stock);
+
+  useEffect(() => {
+    setIsLoading(true);
+    (async () => {
+      setupdatedStock(await db.getSingleStock(id));
+      onModifyQuantity(count, updatedStock);
+      setIsLoading(false);
+    })();
+  }, [count]);
 
   const handlerIncrease = () => {
-    count < stock && setCount(count + 1);
+    count < updatedStock && setCount(count + 1);
   };
 
   const handlerDecrease = () => {
     count > 1 && setCount(count - 1);
   };
 
-  useEffect(() => {
-    stock ? setCount(1) : setCount(0);
-  }, []);
+  if (isLoading) {
+    return (
+      <Stack alignItems="center" w="200px">
+        <CircularProgress isIndeterminate color="neutral" size="80px" />
+      </Stack>
+    );
+  }
 
   return (
     <Stack mt="10" alignItems="center" justifyContent="center" gap="2" pt="5px">
@@ -37,9 +59,9 @@ const ItemCount = ({ stock }) => {
           color="neutral"
           backgroundColor="white"
           borderRadius="5"
-          disabled={stock <= 0 || count <= 1}
+          disabled={updatedStock <= 0 || count <= 1}
           boxShadow={
-            count > 1 && stock > 0
+            count > 1 && updatedStock > 0
               ? "-2px -2px 10px #d6d6d6, 2px 2px 10px #ffffff"
               : "inset -3px -3px 8px #dddddd, inset 3px 3px 8px #ffffff !important"
           }
@@ -64,9 +86,9 @@ const ItemCount = ({ stock }) => {
           color="neutral"
           backgroundColor="white"
           borderRadius="5"
-          disabled={stock <= 0 || count >= stock}
+          disabled={updatedStock <= 0 || count >= updatedStock}
           boxShadow={
-            count < stock
+            count < updatedStock
               ? "-2px -2px 10px #d6d6d6, 2px 2px 10px #ffffff"
               : "inset -3px -3px 8px #dddddd, inset 3px 3px 8px #ffffff !important"
           }
@@ -78,12 +100,12 @@ const ItemCount = ({ stock }) => {
       <Text
         fontSize="xs"
         fontFamily="text"
-        color={stock ? "neutral" : "red"}
+        color={updatedStock ? "neutral" : "red"}
         fontWeight="400"
         letterSpacing="3px"
         textTransform="uppercase"
       >
-        Available stock: {stock} un.
+        Available stock: {updatedStock} un.
       </Text>
     </Stack>
   );

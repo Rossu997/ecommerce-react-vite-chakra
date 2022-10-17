@@ -1,8 +1,7 @@
 import { useContext, useState } from "react";
 import { Button, Text, Heading, Stack } from "@chakra-ui/react";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
-import { db, DB_COLLECTIONS } from "../../../firebase/firebase";
+import db from "../../../services/db";
 import { CartContext } from "../../../context/CartContext";
 import ClientForm from "./ClientForm";
 import PurchaseModal from "./PurchaseModal";
@@ -10,26 +9,18 @@ import PurchaseModal from "./PurchaseModal";
 /*---------------------------------------------------------------------*/
 
 const Buying = () => {
-  const { cart, cartQuantity, totalPrice, resetCart } = useContext(CartContext);
+  const { cart, cartUnits, totalPrice, resetCart } = useContext(CartContext);
   const [postData, setPostData] = useState("");
 
-  const endPurchase = (clientData) => {
-    const dbCollection = collection(db, DB_COLLECTIONS[1]);
-    (async () => {
-      try {
-        const post = await addDoc(dbCollection, {
-          client: clientData,
-          items: cart,
-          time: serverTimestamp(),
-          total: totalPrice,
-        });
-        console.log("post id response: ", post.id);
-        setPostData(post.id);
-        resetCart();
-      } catch (error) {
-        console.error(error);
-      }
-    })();
+  const endPurchase = async (clientData) => {
+    try {
+      const purchaseId = await db.postSell(clientData, cart, 200);
+      console.log("post id response: ", purchaseId);
+      setPostData(purchaseId);
+      resetCart();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -53,7 +44,7 @@ const Buying = () => {
             alignItems="baseline"
             justifyContent="space-between"
           >
-            <Text>{`Products (${cartQuantity})`}</Text>
+            <Text>{`Products (${cartUnits})`}</Text>
             <Text>{`$${totalPrice}`}</Text>
           </Stack>
           <Stack

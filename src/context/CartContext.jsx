@@ -18,7 +18,7 @@ const CartProvider = ({ children }) => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  //Calcula el precio total de cart
+  //Calcula el precio total de cart //desactualizado ARREGLAR YA NO TIENE PRECIO//
   useEffect(() => {
     if (cart.length > 0) {
       const newTotalPrice = cart.reduce(
@@ -44,8 +44,8 @@ const CartProvider = ({ children }) => {
     }
   }, [cart]);
 
-  //Añade un item al carrito o aumenta la cantidad de un item que ya se encuentre en el carrito
-  const addToCart = (quantity, id, title, price, image) => {
+  //Añade un item al carrito o aumenta la cantidad de un item que ya se encuentra en el carrito
+  const addToCart = (quantity, id) => {
     const positionInCart = isInCart(id);
     if (positionInCart !== -1) {
       const newQuantity = cart[positionInCart].quantity + quantity;
@@ -57,8 +57,19 @@ const CartProvider = ({ children }) => {
       });
       setCart(newCart);
     } else {
-      setCart([...cart, { quantity, id, title, price, image }]);
+      setCart([...cart, { quantity, id }]);
     }
+  };
+
+  //Modifica directamente la cantidad de un item que ya se encuentra en el carrito
+  const modifyQuantity = (newQuantity, id) => {
+    const newCart = cart.map((item) => {
+      if (item.id === id) {
+        return { ...item, quantity: newQuantity };
+      }
+      return item;
+    });
+    setCart(newCart);
   };
 
   //Funcion interna que checkea si un item ya está en el carrito
@@ -72,7 +83,7 @@ const CartProvider = ({ children }) => {
     setCart(newCart);
   };
 
-  //Bora todos los items del carrito, dejándolo vacío
+  //Borra todos los items del carrito, dejándolo vacío
   const resetCart = () => {
     setCart([]);
   };
@@ -86,6 +97,7 @@ const CartProvider = ({ children }) => {
         addToCart,
         removeFromCart,
         resetCart,
+        modifyQuantity,
       }}
     >
       {children}

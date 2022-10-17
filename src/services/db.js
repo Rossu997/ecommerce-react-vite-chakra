@@ -2,9 +2,11 @@ import {
   doc,
   getDoc,
   getDocs,
+  addDoc,
   collection,
   query,
   where,
+  serverTimestamp,
 } from "firebase/firestore";
 import { db, DB_COLLECTIONS } from "../firebase/firebase";
 
@@ -55,6 +57,47 @@ export default {
       return dbCategories;
     } catch (error) {
       console.log(error);
+    }
+  },
+  postCompromisedStock: async (cart) => {
+    const dbCollection = collection(db, DB_COLLECTIONS[3]);
+
+    try {
+      const post = await addDoc(dbCollection, { ...cart });
+      console.log("post id response: ", post.id);
+      return post.id;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  getSingleStock: async (idProduct) => {
+    const dbCollection = collection(db, DB_COLLECTIONS[0]);
+    const dbDoc = doc(dbCollection, idProduct);
+
+    try {
+      const data = await getDoc(dbDoc);
+      const dbSingleStock = {
+        ...data.data(),
+      };
+      return dbSingleStock.stock;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  postSell: async (clientData, cart, totalPrice) => {
+    const dbCollection = collection(db, DB_COLLECTIONS[1]);
+
+    try {
+      const post = await addDoc(dbCollection, {
+        client: clientData,
+        items: cart,
+        time: serverTimestamp(),
+        total: totalPrice,
+      });
+      console.log("post id response: ", post.id);
+      return post.id;
+    } catch (error) {
+      console.error(error);
     }
   },
 };

@@ -15,4 +15,4 @@ export const db = getFirestore(app);
 
 /*---------------------------------------------------------------------*/
 
-export const DB_COLLECTIONS = ["products", "sells", "categories"];
+export const DB_COLLECTIONS = ["products", "sells", "categories", "buying"];

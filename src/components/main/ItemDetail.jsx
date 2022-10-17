@@ -26,14 +26,12 @@ const ItemDetail = ({
   price,
   title,
 }) => {
-  const [updatedStock, setUpdatedStock] = useState(stock);
   const [goToCartBtn, setGoToCartBtn] = useState(false);
-  const { cart, addToCart } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
 
   const onAdd = (count) => {
-    if (count <= updatedStock) {
-      setUpdatedStock(updatedStock - count);
-      addToCart(count, id, title, price, image);
+    if (count <= stock) {
+      addToCart(count, id);
       setGoToCartBtn(true);
     }
   };
@@ -86,7 +84,7 @@ const ItemDetail = ({
               </Heading>
             </Box>
           </Box>
-          <ItemCount stock={updatedStock} onAdd={onAdd} />
+          <ItemCount stock={stock} onAdd={onAdd} />
           {goToCartBtn && (
             <Stack flexDir="row-reverse">
               <Link to="/cart">
