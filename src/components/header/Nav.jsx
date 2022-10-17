@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Stack, Text } from "@chakra-ui/react";
-import { getDocs, collection } from "firebase/firestore";
 
-import { db, DB_COLLECTIONS } from "../../firebase/firebase";
+import db from "../../services/db";
 
 /*---------------------------------------------------------------------*/
 
@@ -11,19 +10,8 @@ const Nav = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    const dbCollection = collection(db, DB_COLLECTIONS[2]);
-
     (async () => {
-      try {
-        const data = await getDocs(dbCollection);
-        const dbCategories = data.docs.map((category) => {
-          return category.data().name;
-        });
-        setCategories(dbCategories);
-      } catch (error) {
-        setError(true);
-        console.log(error);
-      }
+      setCategories(await db.getCategories());
     })();
   }, []);
 
