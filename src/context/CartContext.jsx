@@ -1,9 +1,7 @@
 import { createContext, useState, useEffect } from "react";
+import db from "../services/db";
 
 /*---------------------------------------------------------------------*/
-//{Provider(trae la info. mensajero), Consumer(la info. mensaje)}
-//No usamos el consumer
-//Usamos el hook useContext en el componente que queremos usar las props
 
 export const CartContext = createContext();
 const cartLS = JSON.parse(localStorage.getItem("cart"));
@@ -11,24 +9,10 @@ const cartLS = JSON.parse(localStorage.getItem("cart"));
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(cartLS || []);
   const [cartUnits, setCartUnits] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
 
   //Persiste cart en LocalStorage
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
-
-  //Calcula el precio total de cart //desactualizado ARREGLAR YA NO TIENE PRECIO//
-  useEffect(() => {
-    if (cart.length > 0) {
-      const newTotalPrice = cart.reduce(
-        (acc, current) => acc + current.price * current.quantity,
-        0
-      );
-      setTotalPrice(newTotalPrice);
-    } else {
-      setTotalPrice(0);
-    }
   }, [cart]);
 
   //Calcula la cantidad de unidades en cart
@@ -93,7 +77,6 @@ const CartProvider = ({ children }) => {
       value={{
         cart,
         cartUnits,
-        totalPrice,
         addToCart,
         removeFromCart,
         resetCart,

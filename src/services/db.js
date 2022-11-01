@@ -84,6 +84,20 @@ export default {
       console.log(error);
     }
   },
+  getSinglePrice: async (idProduct) => {
+    const dbCollection = collection(db, DB_COLLECTIONS[0]);
+    const dbDoc = doc(dbCollection, idProduct);
+
+    try {
+      const data = await getDoc(dbDoc);
+      const dbSingleStock = {
+        ...data.data(),
+      };
+      return dbSingleStock.price;
+    } catch (error) {
+      console.log(error);
+    }
+  },
   postSell: async (clientData, cart, totalPrice) => {
     const dbCollection = collection(db, DB_COLLECTIONS[1]);
 

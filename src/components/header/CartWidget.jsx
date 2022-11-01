@@ -8,7 +8,7 @@ import { CartContext } from "../../context/CartContext";
 
 const CartWidget = () => {
   const { cart, cartUnits } = useContext(CartContext);
-
+  console.log(cart);
   return (
     <Box position="relative">
       <IconButton

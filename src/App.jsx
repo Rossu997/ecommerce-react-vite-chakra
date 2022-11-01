@@ -10,6 +10,7 @@ import ItemDetailContainer from "./components/main/ItemDetailContainer";
 import Footer from "./components/footer/Footer";
 import { Terminosycondiciones } from "./components/footer/Terminosycondiciones";
 import CartProvider from "./context/CartContext";
+import BuyProvider from "./context/BuyContext";
 import ScrollToTop from "./components/utils/scrollToTop";
 
 /*---------------------------------------------------------------------*/
@@ -28,23 +29,25 @@ function App() {
             alignSelf="center"
             alignItems="center"
           >
-            <Routes>
-              <Route exact path="/" element={<ItemListContainer />} />
-              <Route
-                path="/category/:categoryName"
-                element={<ItemListContainer />}
-              />
-              <Route
-                path="/item/:idProduct"
-                element={<ItemDetailContainer />}
-              />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/cart/buying" element={<Buying />} />
-              <Route
-                path="/legals/terminosycondiciones"
-                element={<Terminosycondiciones />}
-              />
-            </Routes>
+            <BuyProvider>
+              <Routes>
+                <Route exact path="/" element={<ItemListContainer />} />
+                <Route
+                  path="/category/:categoryName"
+                  element={<ItemListContainer />}
+                />
+                <Route
+                  path="/item/:idProduct"
+                  element={<ItemDetailContainer />}
+                />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/cart/buying" element={<Buying />} />
+                <Route
+                  path="/legals/terminosycondiciones"
+                  element={<Terminosycondiciones />}
+                />
+              </Routes>
+            </BuyProvider>
           </Container>
         </CartProvider>
         <Footer />
