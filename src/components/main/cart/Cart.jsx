@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link as ReachLink } from "react-router-dom";
 import {
   Button,
@@ -15,7 +15,6 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { CartContext } from "../../../context/CartContext";
 import ReturnNavigation from "../ReturnNavigation";
 import ResetCartAlert from "./ResetCartAlert";
-import CartItemCount from "./CartItemCount";
 
 /*---------------------------------------------------------------------*/
 
@@ -52,7 +51,7 @@ const Cart = () => {
           >
             <Stack
               flexDirection="row"
-              gap="6rem"
+              gap="24rem"
               justifyContent="space-between"
               alignItems="center"
             >
@@ -89,14 +88,14 @@ const Cart = () => {
                   >
                     <Heading fontSize="1rem">{item.title}</Heading>
                   </Link>
-                  <Text color="neutral">{`Price: $${item.price}`}</Text>
+                  <Text color="neutral">{`Unit price: $${item.price}`}</Text>
                 </Stack>
               </Stack>
 
-              <CartItemCount quantity={item.quantity} id={item.id} />
-
               <Stack>
-                <Heading fontSize="2rem">${item.price * item.quantity}</Heading>
+                <Heading fontSize="2rem">
+                  ${(item.price * item.quantity).toFixed(2)}
+                </Heading>
                 <Text>{`Quantity: ${item.quantity}`}</Text>
               </Stack>
             </Stack>

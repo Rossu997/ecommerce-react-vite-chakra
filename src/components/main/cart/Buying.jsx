@@ -1,6 +1,12 @@
 import { useContext, useState } from "react";
-import { Button, Text, Heading, Stack } from "@chakra-ui/react";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { Text, Heading, Stack } from "@chakra-ui/react";
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 
 import { db, DB_COLLECTIONS } from "../../../firebase/firebase";
 import { CartContext } from "../../../context/CartContext";
@@ -10,7 +16,7 @@ import PurchaseModal from "./PurchaseModal";
 /*---------------------------------------------------------------------*/
 
 const Buying = () => {
-  const { cart, cartQuantity, totalPrice, resetCart } = useContext(CartContext);
+  const { cart, cartUnits, totalPrice, resetCart } = useContext(CartContext);
   const [postData, setPostData] = useState("");
 
   const endPurchase = (clientData) => {
@@ -23,13 +29,20 @@ const Buying = () => {
           time: serverTimestamp(),
           total: totalPrice,
         });
-        console.log("post id response: ", post.id);
+        cart.forEach((item) => {
+          updateStock(item);
+        });
         setPostData(post.id);
         resetCart();
       } catch (error) {
         console.error(error);
       }
     })();
+  };
+
+  const updateStock = (item) => {
+    console.log("en el updatestock. Id de c7prod en el cart", item.id);
+    const docRef = doc(db, DB_COLLECTIONS[0], item.id);
   };
 
   return (
@@ -44,6 +57,7 @@ const Buying = () => {
           borderRadius="lg"
           bgColor="white"
           w="30%"
+          h="fit-content"
         >
           <Heading fontSize="1rem" color="neutral">
             Purchse summary
@@ -53,7 +67,7 @@ const Buying = () => {
             alignItems="baseline"
             justifyContent="space-between"
           >
-            <Text>{`Products (${cartQuantity})`}</Text>
+            <Text>{`Products (${cartUnits})`}</Text>
             <Text>{`$${totalPrice}`}</Text>
           </Stack>
           <Stack

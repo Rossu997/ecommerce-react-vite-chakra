@@ -28,7 +28,7 @@ const ItemDetail = ({
 }) => {
   const [updatedStock, setUpdatedStock] = useState(stock);
   const [goToCartBtn, setGoToCartBtn] = useState(false);
-  const { cart, addToCart } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
 
   const onAdd = (count) => {
     if (count <= updatedStock) {

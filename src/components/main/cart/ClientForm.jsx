@@ -1,12 +1,9 @@
-import { useState, useEffect } from "react";
 import { Link as ReachLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
   Box,
   Stack,
-  Text,
   Heading,
-  Divider,
   Button,
   Icon,
   Input,

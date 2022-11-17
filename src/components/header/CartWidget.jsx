@@ -7,7 +7,7 @@ import { CartContext } from "../../context/CartContext";
 /*---------------------------------------------------------------------*/
 
 const CartWidget = () => {
-  const { cart, cartUnits } = useContext(CartContext);
+  const { cartUnits } = useContext(CartContext);
 
   return (
     <Box position="relative">

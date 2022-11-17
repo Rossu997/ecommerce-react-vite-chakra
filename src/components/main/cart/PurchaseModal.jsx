@@ -58,7 +58,6 @@ const PurchaseModal = ({ code }) => {
             >
               Return to Cart
             </Button>
-            {/* <Button variant="ghost">Secondary Action</Button> */}
           </ModalFooter>
         </ModalContent>
       </Modal>

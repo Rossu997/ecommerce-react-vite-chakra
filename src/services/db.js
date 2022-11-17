@@ -8,6 +8,8 @@ import {
 } from "firebase/firestore";
 import { db, DB_COLLECTIONS } from "../firebase/firebase";
 
+/*---------------------------------------------------------------------*/
+
 export default {
   getProducts: async (categoryName = false) => {
     const dbCollection = collection(db, DB_COLLECTIONS[0]);

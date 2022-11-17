@@ -1,9 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 
 /*---------------------------------------------------------------------*/
-//{Provider(trae la info. mensajero), Consumer(la info. mensaje)}
-//No usamos el consumer
-//Usamos el hook useContext en el componente que queremos usar las props
 
 export const CartContext = createContext();
 const cartLS = JSON.parse(localStorage.getItem("cart"));
@@ -25,7 +22,7 @@ const CartProvider = ({ children }) => {
         (acc, current) => acc + current.price * current.quantity,
         0
       );
-      setTotalPrice(newTotalPrice);
+      setTotalPrice(newTotalPrice.toFixed(2));
     } else {
       setTotalPrice(0);
     }

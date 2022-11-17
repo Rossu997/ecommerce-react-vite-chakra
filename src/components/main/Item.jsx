@@ -1,14 +1,5 @@
 import { Link as ReachLink } from "react-router-dom";
-import {
-  Text,
-  Heading,
-  Box,
-  Image,
-  Badge,
-  Stack,
-  Button,
-  Link,
-} from "@chakra-ui/react";
+import { Heading, Box, Image, Badge, Stack, Link } from "@chakra-ui/react";
 
 /*---------------------------------------------------------------------*/
 
@@ -74,22 +65,3 @@ const Item = ({ category, id, image, price, title }) => {
 };
 
 export default Item;
-
-{
-  /* <Button
-                bgColor="white"
-                borderRadius="20"
-                borderWidth="1px"
-                borderColor="neutralLight"
-                py="6"
-                px="8"
-                color="neutral"
-                fontFamily="text"
-                fontWeight="200"
-                fontSize="1rem"
-                letterSpacing="2px"
-                textTransform="uppercase"
-                width="xs"
-                textAlign="center"
-              ></Button> */
-}
