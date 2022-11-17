@@ -51,7 +51,7 @@ const Cart = () => {
           >
             <Stack
               flexDirection="row"
-              gap="24rem"
+              gap="4rem"
               justifyContent="space-between"
               alignItems="center"
             >

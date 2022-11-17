@@ -5,6 +5,9 @@ import {
   collection,
   query,
   where,
+  addDoc,
+  serverTimestamp,
+  updateDoc,
 } from "firebase/firestore";
 import { db, DB_COLLECTIONS } from "../firebase/firebase";
 
@@ -55,6 +58,30 @@ export default {
         return category.data().name;
       });
       return dbCategories;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  postSell: async (clientData, cart, totalPrice) => {
+    const dbCollection = collection(db, DB_COLLECTIONS[1]);
+
+    try {
+      const post = await addDoc(dbCollection, {
+        client: clientData,
+        items: cart,
+        time: serverTimestamp(),
+        total: totalPrice,
+      });
+      return post.id;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  updateStock: async (item, dbProduct) => {
+    const docRef = doc(db, DB_COLLECTIONS[0], item.id);
+
+    try {
+      updateDoc(docRef, { stock: dbProduct.stock - item.quantity });
     } catch (error) {
       console.log(error);
     }

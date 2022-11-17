@@ -1,17 +1,10 @@
 import { useContext, useState } from "react";
 import { Text, Heading, Stack } from "@chakra-ui/react";
-import {
-  addDoc,
-  collection,
-  serverTimestamp,
-  doc,
-  updateDoc,
-} from "firebase/firestore";
 
-import { db, DB_COLLECTIONS } from "../../../firebase/firebase";
 import { CartContext } from "../../../context/CartContext";
 import ClientForm from "./ClientForm";
 import PurchaseModal from "./PurchaseModal";
+import db from "../../../services/db";
 
 /*---------------------------------------------------------------------*/
 
@@ -20,29 +13,14 @@ const Buying = () => {
   const [postData, setPostData] = useState("");
 
   const endPurchase = (clientData) => {
-    const dbCollection = collection(db, DB_COLLECTIONS[1]);
     (async () => {
-      try {
-        const post = await addDoc(dbCollection, {
-          client: clientData,
-          items: cart,
-          time: serverTimestamp(),
-          total: totalPrice,
-        });
-        cart.forEach((item) => {
-          updateStock(item);
-        });
-        setPostData(post.id);
-        resetCart();
-      } catch (error) {
-        console.error(error);
-      }
+      setPostData(await db.postSell(clientData, cart, totalPrice));
+      cart.forEach(async (item) => {
+        const dbProduct = await db.getSingleProduct(item.id);
+        db.updateStock(item, dbProduct);
+      });
     })();
-  };
-
-  const updateStock = (item) => {
-    console.log("en el updatestock. Id de c7prod en el cart", item.id);
-    const docRef = doc(db, DB_COLLECTIONS[0], item.id);
+    resetCart();
   };
 
   return (
